@@ -8,7 +8,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-green-600 w-11/12 rounded-full h-20 flex justify-between items-center">
+    <header className="bg-green-600 w-11/12 rounded-lg h-20 flex justify-between items-center">
       <h1 className="text-xl ml-10 text-white">Expense Tracker</h1>
       <div className="space-x-4 mr-10 text-white">
         <button
