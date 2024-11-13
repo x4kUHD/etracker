@@ -9,20 +9,33 @@ let balanceAmount = 99999;
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-200 flex justify-center ">
-      <div className="w-11/12 mt-20 flex flex-col">
+    <div className="min-h-screen bg-gray-200 flex justify-center">
+      <div className="w-11/12 mt-4 flex flex-col">
         <Header />
-        <div className="bg-red-100 w-11/12 flex">
-          <div className="w-full flex gap-[16px] pt-8">
-            <SummaryCard title="Income" amount={incomeAmount} />
-            <SummaryCard title="Expenses" amount={expensesAmount} />
-            <SummaryCard title="Balance" amount={balanceAmount} />
+        <div className="mt-4 mb-4 grid h-full w-full grid-cols-10 grid-rows-6 gap-4">
+          {/* Income Card */}
+          <div className="bg-white col-span-2 row-span-1 rounded-xl">
+            <SummaryCard title="Income" amount={incomeAmount}></SummaryCard>
           </div>
-          
-          <div className="w-full bg-red-400 pt-8 flex">
-            <div className="ml-auto">
-              <TransactionHistory />
-            </div>
+
+          {/* Expense Card */}
+          <div className="bg-white col-span-2 row-span-1 rounded-xl">
+            <SummaryCard title="Expenses" amount={expensesAmount}></SummaryCard>
+          </div>
+
+          {/* Balance Card */}
+          <div className="bg-white col-span-2 row-span-1 rounded-xl">
+            <SummaryCard title="Balance" amount={balanceAmount}></SummaryCard>
+          </div>
+
+          {/* Transaction History */}
+          <div className="bg-white col-span-4 row-span-6 rounded-xl">
+            <TransactionHistory></TransactionHistory>
+          </div>
+
+          {/* Spending Chart */}
+          <div className="bg-white col-span-6 row-span-5 rounded-xl flex">
+            <Spending></Spending>
           </div>
         </div>
       </div>
