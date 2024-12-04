@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, ChangeEvent } from "react";
 import axios from "axios";
 
 const Upload = () => {
-  const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
-  const [key, setKey] = useState(Date.now());
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+  function handleFileChange(e) {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+      setFile(e.target.files[0]);
+    }
+  }
 
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleUpload = async () => {
-    if (!file) return alert("Please select a file first");
+  async function handleFileUpload() {
+    if (!file) {
+      alert("Please Select a CSV file to upload");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", file);
@@ -25,38 +25,23 @@ const Upload = () => {
         "http://localhost:5000/upload",
         formData,
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
-      alert("File uploaded successfully!");
-      console.log(response.data);
-
-      setFile(null);
-      setKey(Date.now());
+      alert(response.data.message);
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("Error uploading file");
+      console.error(error);
+      alert("failed to upload file");
     }
-  };
+  }
 
   return (
-    <form>
-      <input
-        key={key}
-        style={{ display: "none" }}
-        type="file"
-        accept=".csv"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />
-      <button
-        className="text-white rounded-xl border-2 px-4 py-2 border-white"
-        onClick={file ? handleUpload : handleButtonClick}
-      >
-        Upload
-      </button>
-      {/* {file ? "Upload" : "Choose File"} */}
-    </form>
+    <div>
+      <input type="file" onChange={handleFileChange} />
+      {file && <button onClick={handleFileUpload}>Upload</button>}
+    </div>
   );
 };
 
